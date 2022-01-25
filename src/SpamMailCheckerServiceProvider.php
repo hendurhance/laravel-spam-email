@@ -40,7 +40,7 @@ class SpamMailCheckerServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('spammail', function ($attribute, $value, $parameters, $validator) {
-            $path = realpath(__DIR__ . '/resources/config/emails.txt');
+            $path = realpath(__DIR__ . '/../resources/config/emails.txt');
             $cacheKey = 'spammailchecker_' . base64_encode($path);
 
             $data = Cache::rememberForever($cacheKey, function () use ($path) {

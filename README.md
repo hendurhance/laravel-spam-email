@@ -1,10 +1,10 @@
-# Very short description of the package
+# laravel-spam-email
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/martian/spammailchecker.svg?style=flat-square)](https://packagist.org/packages/martian/spammailchecker)
 [![Total Downloads](https://img.shields.io/packagist/dt/martian/spammailchecker.svg?style=flat-square)](https://packagist.org/packages/martian/spammailchecker)
 ![GitHub Actions](https://github.com/martian/spammailchecker/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package is a Laravel package that checks if an email address is a spammer. It verifies your signups and form submissions to confirm that they are legitimate.
 
 ## Installation
 
@@ -40,7 +40,7 @@ If you discover any security related issues, please email hendurhance.dev@gmail.
 
 ## Credits
 
--   [Josiah Endurance](https://github.com/martian)
+-   [Josiah Endurance](https://github.com/hendurhance)
 -   [All Contributors](../../contributors)
 
 ## License

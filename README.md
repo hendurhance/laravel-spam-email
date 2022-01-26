@@ -1,6 +1,8 @@
 # laravel-spam-email
 
 [![Latest Stable Version](http://poser.pugx.org/martian/spammailchecker/v)](https://packagist.org/packages/martian/spammailchecker) [![Total Downloads](http://poser.pugx.org/martian/spammailchecker/downloads)](https://packagist.org/packages/martian/spammailchecker) [![Latest Unstable Version](http://poser.pugx.org/martian/spammailchecker/v/unstable)](https://packagist.org/packages/martian/spammailchecker) [![License](http://poser.pugx.org/martian/spammailchecker/license)](https://packagist.org/packages/martian/spammailchecker) [![PHP Version Require](http://poser.pugx.org/martian/spammailchecker/require/php)](https://packagist.org/packages/martian/spammailchecker)
+[![Made in Nigeria](https://img.shields.io/badge/made%20in-nigeria-008751.svg?style=flat-square)](https://github.com/acekyd/made-in-nigeria)
+
 
 This package is a Laravel package that checks if an email address is a spammer. It verifies your signups and form submissions to confirm that they are legitimate.
 

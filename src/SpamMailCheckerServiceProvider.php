@@ -50,6 +50,7 @@ class SpamMailCheckerServiceProvider extends ServiceProvider
                     });
             });
             // check if the email address domain has any of the spam domains
+            $value = filter_var($value, FILTER_VALIDATE_EMAIL);
             $domain = strtolower(substr(strrchr($value, "@"), 1));
             return !$data->contains($domain);
         }, $this->errorMessage);

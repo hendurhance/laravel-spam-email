@@ -2,6 +2,10 @@
     "name": "martian/spammailchecker",
     "description": "A laravel package that protect users from entering non-existing/spam email addresses.",
     "keywords": [
+        "php",
+        "laravel",
+        "github",
+        "spamfree",
         "martian",
         "spammailchecker",
         "spam",
@@ -12,7 +16,7 @@
         "validation",
         "security"
     ],
-    "homepage": "https://github.com/hendurhance/laravel-spam",
+    "homepage": "https://github.com/hendurhance/laravel-spam-email",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -24,7 +28,7 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "~7|~8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",

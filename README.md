@@ -11,7 +11,7 @@ This package is a Laravel package that checks if an email address is a spammer. 
 You can install the package via composer:
 
 ```bash
-composer require martian/spammailchecker:1.2
+composer require martian/spammailchecker
 ```
 - If you are using Laravel 5.5 or higher, you can use the package directly: `composer require 'martian/spammailchecker'`.
 - If you're using Laravel 5.4 or lower, you'll need to register the service provider. Open `config/app.php` and add the following line to the `providers` array:

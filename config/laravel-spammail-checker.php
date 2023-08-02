@@ -85,7 +85,13 @@ return [
             'accept_disposable_email' => true, // This option is to be used with caution, as it may block legitimate email addresses.
         ],
         'verifalia' => [
-            'api_url' => 'https://api.verifalia.com/v2.4/email-validations',
+            'api_url' => 'https://api.verifalia.com/', // The base URL of the Verifalia API.
+            'base_uris' => [
+                'https://api-1.verifalia.com/',
+                'https://api-2.verifalia.com/',
+                'https://api-3.verifalia.com/'
+            ],
+            'version' => 'v2.4', // The version of the Verifalia API to use.
             'username' => env('VERIFALIA_USERNAME'),
             'password' => env('VERIFALIA_PASSWORD'),
             'accept_disposable_email' => true, // This option is to be used with caution, as it may block legitimate email addresses.

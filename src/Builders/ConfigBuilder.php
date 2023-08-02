@@ -164,6 +164,38 @@ class ConfigBuilder
     }
 
     /**
+     * Get the api version for the selected driver.
+     * 
+     * @param string $driver
+     * @return string
+     */
+    public function getApiVersionForDriver(string $driver): string
+    {
+        if (!array_key_exists('version', $this->drivers[$driver])) {
+            throw new SpamMailCheckerException(
+                'The selected driver ' . $driver . ' does not use an api version.'
+            );
+        }
+        return $this->drivers[$driver]['version'];
+    }
+
+    /**
+     * Get the base uris for the selected driver.
+     * 
+     * @param string $driver
+     * @return array
+     */
+    public function getBaseUrisForDriver(string $driver): array
+    {
+        if (!array_key_exists('base_uris', $this->drivers[$driver])) {
+            throw new SpamMailCheckerException(
+                'The selected driver ' . $driver . ' does not use base uris.'
+            );
+        }
+        return $this->drivers[$driver]['base_uris'];
+    }
+
+    /**
      * Get the API key for the selected driver.
      * 
      * @return string

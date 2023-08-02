@@ -2,6 +2,7 @@
 
 namespace Martian\SpamMailChecker\Drivers;
 
+use GuzzleHttp\Exception\RequestException;
 use Martian\SpamMailChecker\Abstracts\Driver;
 use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
 
@@ -62,7 +63,7 @@ class AbstractApiDriver extends Driver
 
             $response = json_decode($response->getBody()->getContents(), true);
 
-            if (floatval($response['quality_score']) < $this->score) {
+            if (is_numeric($response['quality_score']) && floatval($response['quality_score']) < $this->score) {
                 return false;
             }
 
@@ -71,29 +72,8 @@ class AbstractApiDriver extends Driver
             }
 
             return true;
-        } catch (\Exception $e) {
+        } catch (RequestException $e) {
             throw new SpamMailCheckerException($e->getMessage());
         }
-
-    }
-
-    public function val(string $email): float
-    {
-        try {
-            $response = $this->client->request('GET', $this->apiUrl, [
-                'query' => [
-                    'email' => $email,
-                    'api_key' => $this->apiKey,
-                ],
-            ]);
-
-            $response = json_decode($response->getBody()->getContents(), true);
-
-            return $response['quality_score'];
-
-        } catch (\Exception $e) {
-            throw new SpamMailCheckerException($e->getMessage());
-        }
-
     }
 }

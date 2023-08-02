@@ -55,8 +55,8 @@ return [
 
     'drivers' => [
         'local' => [
-            'path' => realpath(__DIR__ . '/../resources/config/emails.txt'),
-            'cache_key' => 'spammailchecker_' . base64_encode(realpath(__DIR__ . '/../resources/config/emails.txt')),
+            'path' => 'resources/config/emails.txt',
+            'cache_key' => 'spammailchecker_' . base64_encode('resources/config/emails.txt'),
             'cache_ttl' => 60 * 60 * 24 * 7, // 1 week
             'whitelist' => [
                 // Email domains that should not be considered as spam, this excludes the domain from the spam check.

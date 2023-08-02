@@ -345,7 +345,7 @@ class ConfigBuilder
      */
     public function getLocalResourcePath(): string
     {
-        return $this->drivers['local']['path'];
+        return realpath(__DIR__ . '/../../' . $this->drivers['local']['path']);
     }
 
     /**

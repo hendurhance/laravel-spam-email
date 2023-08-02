@@ -180,6 +180,21 @@ class ConfigBuilder
     }
 
     /**
+     * Get the source for the selected driver.
+     * 
+     * @return string
+     */
+    public function getSourceForDriver(string $driver): string
+    {
+        if (!array_key_exists('source', $this->drivers[$driver])) {
+            throw new SpamMailCheckerException(
+                'The selected driver ' . $driver . ' does not use a source.'
+            );
+        }
+        return $this->drivers[$driver]['source'];
+    }
+
+    /**
      * Get the base uris for the selected driver.
      * 
      * @param string $driver

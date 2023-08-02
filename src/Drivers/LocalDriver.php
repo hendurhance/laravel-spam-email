@@ -4,6 +4,7 @@ namespace Martian\SpamMailChecker\Drivers;
 
 use Martian\SpamMailChecker\Abstracts\Driver;
 use Illuminate\Support\Facades\Cache;
+use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
 
 class LocalDriver extends Driver
 {
@@ -34,12 +35,16 @@ class LocalDriver extends Driver
      */
     public function validate(string $email): bool
     {
-        $emailDomain = $this->getDomain($email);
+        try {
+            $emailDomain = $this->getDomain($email);
 
-        $domainList = Cache::remember($this->cacheKey, $this->cacheTTL, function () {
-            return $this->config->getLocalDomainList();
-        });
+            $domainList = Cache::remember($this->cacheKey, $this->cacheTTL, function () {
+                return $this->config->getLocalDomainList();
+            });
 
-        return !in_array($emailDomain, $domainList);
+            return !in_array($emailDomain, $domainList);
+        } catch (\Exception $e) {
+            throw new SpamMailCheckerException($e->getMessage());
+        }
     }
 }

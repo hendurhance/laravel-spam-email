@@ -101,6 +101,7 @@ return [
             'api_key' => env('SENDGRID_API_KEY'),
             'score' => 0.5, // The score threshold to consider an email address as spam.
             'accept_disposable_email' => true, // This option is to be used with caution, as it may block legitimate email addresses.
+            'source' => 'signup', // The source of the email address to be validated.
         ],
     ],
 

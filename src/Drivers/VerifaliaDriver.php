@@ -12,7 +12,7 @@ class VerifaliaDriver extends Driver implements IAuthenticator
     /**
      * @var string
      */
-    protected $diverName = 'verifalia';
+    protected $driverName = 'verifalia';
 
     /**
      * @var string
@@ -32,16 +32,6 @@ class VerifaliaDriver extends Driver implements IAuthenticator
     /**
      * @var string
      */
-    protected $allApiUrls;
-
-    /**
-     * @var string
-     */
-    protected $selectedApiUrl;
-
-    /**
-     * @var string
-     */
     protected $version;
 
     /**
@@ -54,61 +44,53 @@ class VerifaliaDriver extends Driver implements IAuthenticator
      */
     protected $acceptDisposable;
 
-    /**
-     * Verifalia Driver Constructor.
-     */
     public function __construct()
     {
         parent::__construct();
-        $this->credential = $this->config->getCredentialsForDriver($this->diverName);
-        $this->apiBaseUris = $this->config->getBaseUrisForDriver($this->diverName);
-        $this->apiUrl = $this->config->getApiUrlForDriver($this->diverName);
-        $this->allApiUrls = array_merge($this->apiBaseUris, [$this->apiUrl]);
-        $this->selectedApiUrl = $this->allApiUrls[array_rand($this->allApiUrls)];
-        $this->version = $this->config->getApiVersionForDriver($this->diverName);
+        $this->initializeConfig();
         $this->bearerToken = $this->authenticate();
-        $this->acceptDisposable = $this->config->getAcceptsDisposableEmailForDriver($this->diverName);
+        $this->acceptDisposable = $this->config->getAcceptsDisposableEmailForDriver($this->driverName);
     }
 
-    /**
-     * Authenticate the driver using the credentials.
-     *
-     * @return string
-     */
+    protected function initializeConfig()
+    {
+        $this->credential = $this->config->getCredentialsForDriver($this->driverName);
+        $this->apiBaseUris = $this->config->getBaseUrisForDriver($this->driverName);
+        $this->apiUrl = $this->config->getApiUrlForDriver($this->driverName);
+        $this->version = $this->config->getApiVersionForDriver($this->driverName);
+    }
+
     public function authenticate(): string
     {
         try {
-            $response = $this->client->request('POST', $this->selectedApiUrl . $this->version . '/auth/tokens', [
+            $selectedApiUrl = $this->getRandomApiUrl();
+            $response = $this->client->request('POST', $selectedApiUrl . $this->version . '/auth/tokens', [
                 'json' => [
                     'username' => $this->credential['username'],
                     'password' => $this->credential['password'],
                 ],
             ]);
 
-            $response = json_decode($response->getBody()->getContents(), true);
+            $responseData = json_decode($response->getBody()->getContents(), true);
 
-            return $response['accessToken'];
+            return $responseData['accessToken'];
         } catch (RequestException $e) {
             throw new SpamMailCheckerException($e->getMessage());
         }
     }
 
-    /**
-     * Validate the email using the verifalia driver.
-     *
-     * @return bool
-     * @throws SpamMailCheckerValidationException
-     */
+    protected function getRandomApiUrl(): string
+    {
+        $allApiUrls = array_merge($this->apiBaseUris, [$this->apiUrl]);
+        return $allApiUrls[array_rand($allApiUrls)];
+    }
+
     public function validate(string $email): bool
     {
         try {
             $response = $this->getVerificationResponse($email);
 
-            if ($response['status'] !== 'Success') {
-                return false;
-            }
-
-            if ($response['classification'] !== 'Deliverable') {
+            if ($response['status'] !== 'Success' || $response['classification'] !== 'Deliverable') {
                 return false;
             }
 
@@ -122,15 +104,11 @@ class VerifaliaDriver extends Driver implements IAuthenticator
         }
     }
 
-    /**
-     * Get the verification response from the verifalia api.
-     *
-     * @param string $email
-     * @return array
-     */
-    public function getVerificationResponse(string $email): array
+    protected function getVerificationResponse(string $email): array
     {
-        $response = $this->client->request('POST', $this->selectedApiUrl . $this->version . '/email-validations', [
+        $selectedApiUrl = $this->getRandomApiUrl();
+
+        $response = $this->client->request('POST', $selectedApiUrl . $this->version . '/email-validations', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->bearerToken,
                 'Accept' => 'application/json',
@@ -138,15 +116,11 @@ class VerifaliaDriver extends Driver implements IAuthenticator
             ],
             'json' => [
                 'entries' => [
-                    [
-                        'inputData' => $email,
-                    ],
+                    ['inputData' => $email],
                 ],
             ],
         ]);
 
-        $response = json_decode($response->getBody()->getContents(), true);
-
-        return $response['entries']['data'][0];
+        return json_decode($response->getBody()->getContents(), true)['entries']['data'][0];
     }
 }

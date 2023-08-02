@@ -30,14 +30,15 @@ All notable changes to `spammailchecker` will be documented in this file
 - [ADDED] Added SpamMailCheckerServiceProvider to handle package registration and validation rule extension.
 - [CHANGED] The SpamMailChecker class now implements the DriverInterface.
 - [DEPRECATED] Deprecated package versions less than 2.0.0. The package will no longer receive updates for versions 1.0.0 and below.
+- [ADDED] Add tests for all supported email validation services.
 
 ## 2.1.0 (Upcoming)
-- [ADDED] Added support for Laravel 11.
+- [ADDED] Added support for Laravel ^10x.
 - [ADDED] Added support for the rest of the email validation services.
   - [ ] [ZeroBounce](https://www.zerobounce.net/) 
   - [ ] [MailboxValidator](https://www.mailboxvalidator.com/)
   - [ ] [EmailListVerify](https://www.emaillistverify.com/)
-  - [ ] [EmailChecker](https://www.emailchecker.com/)
+  - [ ] [Emailable](https://emailable.com/)
 - [IMPROVED] Enhanced error handling and exception messages for better debugging.
 - [IMPROVED] Improved package documentation with more examples and usage guidelines.
 - [FIXED] Addressed reported issues and bugs from previous versions.

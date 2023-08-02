@@ -77,7 +77,12 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
             ]
         ]
     ```
-> **NOTE:** The local driver is case-insensitive. So, you don't need to worry about the case of the email domain.
+- Clear the config and cache using the following commands after making changes to the configuration file:
+
+    ```bash
+        php artisan optimize:clear
+    ```
+> **NOTE:** The local driver is case-insensitive. So, you don't need to worry about the case of the email domain. Y
 
 #### Remote Driver Configuration
 - In order to use `remote` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `remote`:

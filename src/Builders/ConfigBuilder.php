@@ -345,4 +345,44 @@ class ConfigBuilder
             ->toArray();
     }
 
+    /**
+     * Get Remote Driver Timeout.
+     * 
+     * @return int
+     */
+    public function getRemoteDriverTimeout(): int
+    {
+        return $this->drivers['remote']['timeout'];
+    }
+
+    /**
+     * Get Remote Driver Check DNS.
+     * 
+     * @return bool
+     */
+    public function getRemoteDriverCheckDNS(): bool
+    {
+        return $this->drivers['remote']['check_dns'];
+    }
+
+    /**
+     * Get Remote Driver Check SMTP.
+     * 
+     * @return bool
+     */
+    public function getRemoteDriverCheckSMTP(): bool
+    {
+        return $this->drivers['remote']['check_smtp'];
+    }
+
+    /**
+     * Get Remote Driver Check MX
+     * 
+     * @return bool
+     */
+    public function getRemoteDriverCheckMX(): bool
+    {
+        return $this->drivers['remote']['check_mx'];
+    }
+
 }

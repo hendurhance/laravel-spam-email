@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class LocalDriver extends Driver
 {
     /**
-     * Validate the email.
+     * Validate the email using the local driver.
      * 
      * @return bool
      */

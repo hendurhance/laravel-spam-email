@@ -2,8 +2,10 @@
 
 namespace Martian\SpamMailChecker\Abstracts;
 
+use GuzzleHttp\Client;
 use Martian\SpamMailChecker\Builders\ConfigBuilder;
 use Martian\SpamMailChecker\Contracts\DriverInterface;
+use QuickEmailVerification\Client as QuickEmailVerificationClient;
 
 abstract class Driver implements DriverInterface
 {
@@ -13,11 +15,23 @@ abstract class Driver implements DriverInterface
     protected $config;
 
     /**
+     * @var Client
+     */
+    protected $client;
+
+    /**
+     * @var QuickEmailVerification
+     */
+    protected $quickEmailVerification;
+
+    /**
      * Driver constructor.
      */
     public function __construct()
     {
         $this->config = new ConfigBuilder();
+        $this->client = new Client();
+        $this->quickEmailVerification = new QuickEmailVerificationClient();
     }
 
     /**

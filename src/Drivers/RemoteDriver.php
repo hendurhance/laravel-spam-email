@@ -4,10 +4,41 @@ namespace Martian\SpamMailChecker\Drivers;
 
 use Martian\SpamMailChecker\Abstracts\Driver;
 use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
-use Martian\SpamMailChecker\Exceptions\SpamMailCheckerValidationException;
 
 class RemoteDriver extends Driver
 {
+    /**
+     * @var bool
+     */
+    protected $checkDNS;
+
+    /**
+     * @var bool
+     */
+    protected $checkSMTP;
+
+    /**
+     * @var bool
+     */
+    protected $checkMX;
+
+    /**
+     * @var int
+     */
+    protected $timeout;
+
+    /**
+     * Remote Driver Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->checkDNS = $this->config->getRemoteDriverCheckDNS();
+        $this->checkSMTP = $this->config->getRemoteDriverCheckSMTP();
+        $this->checkMX = $this->config->getRemoteDriverCheckMX();
+        $this->timeout = $this->config->getRemoteDriverTimeout();
+    }
+
     /**
      * Validate the email using the remote driver.
      *
@@ -19,21 +50,20 @@ class RemoteDriver extends Driver
         $emailDomain = $this->getDomain($email);
 
         try {
-            $checkDNS = $this->config->getRemoteDriverCheckDNS();
-            $checkSMTP = $this->config->getRemoteDriverCheckSMTP();
-            $checkMX = $this->config->getRemoteDriverCheckMX();
+            // Check DNS
+        if ($this->checkDNS && !$this->isDNSValid($emailDomain)) {
+            return false;
+        }
 
-            if ($checkDNS && $this->isDNSValid($emailDomain)) {
-                return false;
-            }
+        // Check SMTP
+        if ($this->checkSMTP && !$this->isSMTPValid($emailDomain)) {
+            return false;
+        }
 
-            if ($checkSMTP && $this->isSMTPValid($emailDomain)) {
-                return false;
-            }
-
-            if ($checkMX && $this->isMXValid($emailDomain)) {
-                return false;
-            }
+        // Check MX
+        if ($this->checkMX && !$this->isMXValid($emailDomain)) {
+            return false;
+        }
 
             return true;
         } catch (\Exception $e) {
@@ -49,7 +79,7 @@ class RemoteDriver extends Driver
      */
     protected function isDNSValid(string $domain): bool
     {
-        return checkdnsrr($domain, 'ANY');
+        return checkdnsrr($domain, 'A');
     }
 
     /**
@@ -60,8 +90,7 @@ class RemoteDriver extends Driver
      */
     protected function isSMTPValid(string $domain): bool
     {
-        $timeout = $this->config->getRemoteDriverTimeout();
-        $smtp = fsockopen($domain, 25, $errno, $errstr, $timeout);
+        $smtp = fsockopen($domain, 25, $errno, $errstr, $this->timeout);
         if ($smtp) {
             fclose($smtp);
             return true;

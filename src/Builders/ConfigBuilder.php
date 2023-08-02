@@ -88,7 +88,7 @@ class ConfigBuilder
      */
     public function getApiKeyForDriver(string $driver): string
     {
-        if (!isset($this->drivers[$driver]['api_key'])) {
+        if (!array_key_exists('api_key', $this->drivers[$driver])) {
             throw new SpamMailCheckerApiKeyNotSetException(
                 'The selected driver ' . $driver . ' does not use an API key.'
             );
@@ -104,7 +104,7 @@ class ConfigBuilder
      */
     public function getApiUrlForDriver(string $driver): string
     {
-        if (!isset($this->drivers[$driver]['api_url'])) {
+        if (!array_key_exists('api_url', $this->drivers[$driver])) {
             throw new SpamMailCheckerApiKeyNotSetException(
                 'The selected driver ' . $driver . ' does not use an API url.'
             );
@@ -120,7 +120,7 @@ class ConfigBuilder
      */
     public function getCredentialsForDriver(string $driver): array
     {
-        if (!isset($this->drivers[$driver]['username']) || !isset($this->drivers[$driver]['password'])) {
+        if (!array_key_exists('username', $this->drivers[$driver]) || !array_key_exists('password', $this->drivers[$driver])) {
             throw new SpamMailCheckerCredentialsNotSetException(
                 'The selected driver ' . $driver . ' does not use credentials.'
             );
@@ -135,11 +135,11 @@ class ConfigBuilder
      * Get the score for the selected driver.
      * 
      * @param string $driver
-     * @return int
+     * @return float
      */
-    public function getScoreForDriver(string $driver): int
+    public function getScoreForDriver(string $driver): float
     {
-        if (!isset($this->drivers[$driver]['score'])) {
+        if (!array_key_exists('score', $this->drivers[$driver])) {
             throw new SpamMailCheckerException(
                 'The selected driver ' . $driver . ' does not use a score.'
             );
@@ -155,7 +155,7 @@ class ConfigBuilder
      */
     public function getAcceptsDisposableEmailForDriver(string $driver): bool
     {
-        if (!isset($this->drivers[$driver]['accept_disposable_email'])) {
+        if (!array_key_exists('accept_disposable_email', $this->drivers[$driver])) {
             throw new SpamMailCheckerException(
                 'The selected driver ' . $driver . ' does not use a score.'
             );

@@ -8,6 +8,26 @@ use Illuminate\Support\Facades\Cache;
 class LocalDriver extends Driver
 {
     /**
+     * @var string
+     */
+    protected $cacheKey;
+
+    /**
+     * @var int
+     */
+    protected $cacheTTL;
+
+    /**
+     * Local Driver Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->cacheKey = $this->config->getLocalCacheKey();
+        $this->cacheTTL = $this->config->getLocalCacheTTL();
+    }
+
+    /**
      * Validate the email using the local driver.
      * 
      * @return bool
@@ -16,10 +36,7 @@ class LocalDriver extends Driver
     {
         $emailDomain = $this->getDomain($email);
 
-        $cacheKey = $this->config->getLocalCacheKey();
-        $cacheTTL = $this->config->getLocalCacheTTL();
-
-        $domainList = Cache::remember($cacheKey, $cacheTTL, function () {
+        $domainList = Cache::remember($this->cacheKey, $this->cacheTTL, function () {
             return $this->config->getLocalDomainList();
         });
 

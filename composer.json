@@ -58,7 +58,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Martian\\SpamMailChecker\\providers\\SpamMailCheckerServiceProvider"
+                "Martian\\SpamMailChecker\\Providers\\SpamMailCheckerServiceProvider"
             ],
             "aliases": {
                 "SpamMailChecker": "Martian\\SpamMailChecker\\Facades\\SpamMailCheckerFacade"

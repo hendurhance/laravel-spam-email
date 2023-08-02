@@ -28,7 +28,7 @@ return [
     | Supported: "local", "remote", "abstractapi", "quickemailverification", "verifalia", "sendgrid"
     |
     | - Local: This driver uses a local file `resources/config/emails.txt` to check if an email address is a spam address.
-    | - Remote: This driver uses php `getmxrr()` function to check if an email address is a spam address.
+    | - Remote: This driver uses php in-built functions to check if an email address is a spam address.
     | - AbstractAPI: This driver uses AbstractAPI to check if an email address is a spam address.
     |               @see https://www.abstractapi.com/email-verification-validation-api
     | - QuickEmailVerification: This driver uses QuickEmailVerification to check if an email address is a spam address.
@@ -58,11 +58,11 @@ return [
             'path' => realpath(__DIR__ . '/../resources/config/emails.txt'),
             'cache_key' => 'spammailchecker_' . base64_encode(realpath(__DIR__ . '/../resources/config/emails.txt')),
             'cache_ttl' => 60 * 60 * 24 * 7, // 1 week
-            'whitelists' => [
+            'whitelist' => [
                 // Email domains that should not be considered as spam, this excludes the domain from the spam check.
                 // Example: 'gmail.com', 'yahoo.com'
             ],
-            'blacklists' => [
+            'blacklist' => [
                 // Email domains that should be considered as spam, this includes the domain in the spam check.
                 // Example: 'mail.ru', 'yandex.ru'
             ]

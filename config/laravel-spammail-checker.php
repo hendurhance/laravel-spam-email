@@ -40,7 +40,7 @@ return [
     |
     */
     
-    'driver' => env('SPAM_MAIL_CHECKER_DRIVER', 'local'),
+    'default' => env('SPAM_MAIL_CHECKER_DEFAULT_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------

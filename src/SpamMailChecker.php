@@ -2,52 +2,60 @@
 
 namespace Martian\SpamMailChecker;
 
-use Martian\SpamMailChecker\Builders\ConfigBuilder;
 use Martian\SpamMailChecker\Contracts\DriverInterface;
+use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
+use Martian\SpamMailChecker\Builders\ConfigBuilder;
 use Martian\SpamMailChecker\Drivers\AbstractApiDriver;
 use Martian\SpamMailChecker\Drivers\LocalDriver;
 use Martian\SpamMailChecker\Drivers\QuickEmailVerificationDriver;
 use Martian\SpamMailChecker\Drivers\RemoteDriver;
 use Martian\SpamMailChecker\Drivers\SendGridDriver;
 use Martian\SpamMailChecker\Drivers\VerifaliaDriver;
-use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
 
 class SpamMailChecker implements DriverInterface
 {
     /**
-     * @var string
+     * @var DriverInterface
      */
-    protected $defaultDriver;
-
-    /**
-     * @var array
-     */
-    protected $drivers = [];
+    protected $driver;
 
     /**
      * SpamMailChecker constructor.
+     *
+     * @throws SpamMailCheckerException
      */
     public function __construct()
     {
-        $this->defaultDriver = (new ConfigBuilder())->getDefaultDriver();
-        $this->initializeDrivers();
+        $configBuilder = new ConfigBuilder();
+        $defaultDriver = $configBuilder->getDefaultDriver();
+        $this->driver = $this->initializeDriver($defaultDriver);
     }
 
     /**
-     * Initialize the drivers.
-     * 
-     * @return void
+     * Initialize the driver based on the default driver configuration.
+     *
+     * @param string $defaultDriver
+     * @return DriverInterface
+     * @throws SpamMailCheckerException
      */
-    protected function initializeDrivers()
+    protected function initializeDriver(string $defaultDriver): DriverInterface
     {
-        $this->drivers = [
-            'local' => new LocalDriver(),
-            'remote' => new RemoteDriver(),
-            'abstractapi' => new AbstractApiDriver(),
-            'quickemailverification' => new QuickEmailVerificationDriver(),
-            'verifalia' => new VerifaliaDriver(),
-            'sendgrid' => new SendGridDriver(),
-        ];
+        switch ($defaultDriver) {
+            case 'abstractapi':
+                return new AbstractApiDriver();
+            case 'quickemailverification':
+                return new QuickEmailVerificationDriver();
+            case 'verifalia':
+                return new VerifaliaDriver();
+            case 'sendgrid':
+                return new SendGridDriver();
+            case 'local':
+                return new LocalDriver();
+            case 'remote':
+                return new RemoteDriver();
+            default:
+                throw new SpamMailCheckerException("Driver '{$defaultDriver}' not found.");
+        }
     }
 
     /**
@@ -58,33 +66,6 @@ class SpamMailChecker implements DriverInterface
      */
     public function validate(string $email): bool
     {
-        if (!isset($this->drivers[$this->defaultDriver])) {
-            throw new SpamMailCheckerException("Default driver '{$this->defaultDriver}' not found.");
-        }
-        return $this->drivers[$this->defaultDriver]->validate(filter_var($email, FILTER_SANITIZE_EMAIL));
-    }
-    /**
-     * Set the default driver to use for email validation.
-     *
-     * @param string $driverName
-     * @throws SpamMailCheckerException
-     */
-    public function setDefaultDriver(string $driverName)
-    {
-        if (!isset($this->drivers[$driverName])) {
-            throw new SpamMailCheckerException("Driver '{$driverName}' not found.");
-        }
-
-        $this->defaultDriver = $driverName;
-    }
-
-    /**
-     * Get the list of available drivers.
-     *
-     * @return array
-     */
-    public function getAvailableDrivers(): array
-    {
-        return array_keys($this->drivers);
+        return $this->driver->validate($email);
     }
 }

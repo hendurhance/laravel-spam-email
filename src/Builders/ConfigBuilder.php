@@ -10,8 +10,6 @@ use Martian\SpamMailChecker\Exceptions\SpamMailCheckerNotFoundException;
 
 class ConfigBuilder
 {
-    // Get all the required config setters and getters from the config file
-
     /**
      * @var string
      */
@@ -42,9 +40,9 @@ class ConfigBuilder
      */
     public function __construct()
     {
-        $this->defaultDriver = Config::get('laravel-spammail-checker.driver');
+        $this->defaultDriver = Config::get('laravel-spammail-checker.default');
         $this->drivers = Config::get('laravel-spammail-checker.drivers');
-        $this->ruleName = Config::get('laravel-spammail-checker.rule_name');
+        $this->ruleName = Config::get('laravel-spammail-checker.rule');
         $this->errorMessage = Config::get('laravel-spammail-checker.error_message');
     }
 

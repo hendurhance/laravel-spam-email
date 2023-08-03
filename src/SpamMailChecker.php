@@ -66,6 +66,6 @@ class SpamMailChecker implements DriverInterface
      */
     public function validate(string $email): bool
     {
-        return $this->driver->validate(filter_var($email, FILTER_SANITIZE_EMAIL));
+        return $this->driver->validate(filter_var(strtolower($email), FILTER_SANITIZE_EMAIL));
     }
 }

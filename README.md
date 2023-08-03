@@ -1,6 +1,6 @@
 # Laravel SpamMailChecker 
 
-[![Latest Stable Version](http://poser.pugx.org/martian/spammailchecker/v)](https://packagist.org/packages/martian/spammailchecker) [![Total Downloads](http://poser.pugx.org/martian/spammailchecker/downloads)](https://packagist.org/packages/martian/spammailchecker) [![Latest Unstable Version](http://poser.pugx.org/martian/spammailchecker/v/unstable)](https://packagist.org/packages/martian/spammailchecker) [![License](http://poser.pugx.org/martian/spammailchecker/license)](https://packagist.org/packages/martian/spammailchecker) [![PHP Version Require](http://poser.pugx.org/martian/spammailchecker/require/php)](https://packagist.org/packages/martian/spammailchecker)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/martian/spammailchecker.svg?style=flat-square)](https://packagist.org/packages/martian/laracaptcha) [![Total Downloads](http://poser.pugx.org/martian/spammailchecker/downloads)](https://packagist.org/packages/martian/spammailchecker) [![Latest Unstable Version](http://poser.pugx.org/martian/spammailchecker/v/unstable)](https://packagist.org/packages/martian/spammailchecker) [![License](http://poser.pugx.org/martian/spammailchecker/license)](https://packagist.org/packages/martian/spammailchecker) [![PHP Version Require](http://poser.pugx.org/martian/spammailchecker/require/php)](https://packagist.org/packages/martian/spammailchecker)
 [![Made in Nigeria](https://img.shields.io/badge/made%20in-nigeria-008751.svg?style=flat-square)](https://github.com/acekyd/made-in-nigeria)
 
 
@@ -51,7 +51,7 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
 - In order to use `local`as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `local`:
 
     ```php
-        'driver' => 'local',
+        'default' => 'local',
     ```
 - Or you can set the `SPAM_MAIL_CHECKER_DEFAULT_DRIVER` environment variable to `local` in your `.env` file.
 
@@ -82,7 +82,7 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
     ```bash
         php artisan optimize:clear
     ```
-> **NOTE:** The local driver is case-insensitive. So, you don't need to worry about the case of the email domain. Y
+> **NOTE:** The local driver is case-insensitive. So, you don't need to worry about the case of the email domain.
 
 #### Remote Driver Configuration
 - In order to use `remote` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `remote`:
@@ -114,7 +114,7 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
 - In order to use `abstractapi` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `abstractapi`:
 
     ```env
-        'driver' => 'abstractapi',
+        'default' => 'abstractapi',
     ```
 - Or you can set the `SPAM_MAIL_CHECKER_DEFAULT_DRIVER` environment variable to `abstractapi` in your `.env` file.
 
@@ -143,7 +143,7 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
 - In order to use `quickemailverification` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `quickemailverification`:
 
     ```env
-        'driver' => 'quickemailverification',
+        'default' => 'quickemailverification',
     ```
 - Or you can set the `SPAM_MAIL_CHECKER_DEFAULT_DRIVER` environment variable to `quickemailverification` in your `.env` file.
 
@@ -170,7 +170,7 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
 - In order to use `verifalia` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `verifalia`:
 
     ```env
-        'driver' => 'verifalia',
+        'default' => 'verifalia',
     ```
 - Or you can set the `SPAM_MAIL_CHECKER_DEFAULT_DRIVER` environment variable to `verifalia` in your `.env` file.
 
@@ -197,11 +197,11 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
     ```
 > **NOTE:** A user on verifalia needs to be granted permission to use the API. You can do this by going to [here](https://verifalia.com/client-area#/users) and clicking on the edit user you want to grant permission to. Then click on the `Permissions` tab and check the appropriate permissions on `Email validations` section.
 
-#### Sendgrid Driver Configuration
+#### SendGrid Driver Configuration
 - In order to use `sendgrid` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `sendgrid`:
 
     ```env
-        'driver' => 'sendgrid',
+        'default' => 'sendgrid',
     ```
 - Or you can set the `SPAM_MAIL_CHECKER_DEFAULT_DRIVER` environment variable to `sendgrid` in your `.env` file.
 
@@ -298,7 +298,7 @@ public function checkEmail($email)
 ```
 
 #### Using Each Driver Individually
-You can also use each driver individually without using the `spammail` validation rule. This is useful when you want to use the package in your own custom validation rule or your own custom class.
+You can also use each driver individually without using the `spammail` validation rule. This is useful when a certain driver is needed in a particular situation.
 ##### Using VerifaliaDriver
 ```php
 use Martian\SpamMailChecker\Drivers\VerifaliaDriver;

@@ -2,12 +2,18 @@
 
 namespace Martian\SpamMailChecker\Tests;
 
+use Martian\SpamMailChecker\Builders\ConfigBuilder;
 use Martian\SpamMailChecker\Facades\SpamMailCheckerFacade;
 use Martian\SpamMailChecker\Providers\SpamMailCheckerServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
-class TestCase extends Orchestra
+abstract class TestCase extends Orchestra
 {
+    /**
+     * @var ConfigBuilder
+     */
+    protected $configBuilder;
+
     /**
      * Load package service provider
      * 
@@ -28,7 +34,13 @@ class TestCase extends Orchestra
     protected function getPackageAliases($app)
     {
         return [
-            'SpamMailChecker' =>SpamMailCheckerFacade::class,
+            'SpamMailChecker' => SpamMailCheckerFacade::class,
         ];
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->configBuilder = new ConfigBuilder();
     }
 }

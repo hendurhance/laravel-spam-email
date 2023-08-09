@@ -1,2 +1,10 @@
 main.py
 /vendor
+
+# Byte-compiled / optimized / DLL files
+.DS_Store
+phpunit.xml
+
+# Environment variables
+.env
+.phpunit.result.cache

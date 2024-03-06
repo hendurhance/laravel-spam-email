@@ -2,6 +2,7 @@
 
 namespace Martian\SpamMailChecker\Providers;
 
+use Composer\InstalledVersions;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Martian\SpamMailChecker\SpamMailChecker;
@@ -13,8 +14,11 @@ class SpamMailCheckerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Depreciation Notice
-        trigger_deprecation('martian/spammailchecker', '1.0.0', 'This package is deprecated and will no longer be maintained. Please use version 2.0.0 or higher.');
+        // Deprecation Notice
+        if (version_compare(InstalledVersions::getVersion('martian/spammailchecker'), '2.0.0', '<'))
+        {
+            trigger_deprecation('martian/spammailchecker', '1.0.0', 'This package is deprecated and will no longer be maintained. Please use version 2.0.0 or higher.');
+        }
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

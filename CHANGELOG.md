@@ -6,7 +6,7 @@ All notable changes to `spammailchecker` will be documented in this file
 
 - initial release
 - [DEPRECATED] This package is deprecated and will no longer be maintained. Please use version 2.0.0 or higher.
-  
+
 ## 2.0.0 - 2023-07-02
 - [ADDED] Added Laravel 10 support.
 - [IMPROVED] Improved compatibility with Laravel versions 5 and above.
@@ -18,11 +18,11 @@ All notable changes to `spammailchecker` will be documented in this file
   - [x] [Verifalia](https://verifalia.com/)
   - [x] [AbstractApi](https://www.abstractapi.com/api/email-verification-validation-api)
   - [x] [SendGrid](https://sendgrid.com/solutions/email-validation-api/)
-  - [ ] [ZeroBounce](https://www.zerobounce.net/) 
+  - [ ] [ZeroBounce](https://www.zerobounce.net/)
   - [ ] [MailboxValidator](https://www.mailboxvalidator.com/)
   - [ ] [EmailListVerify](https://www.emaillistverify.com/)
   - [ ] [EmailChecker](https://www.emailchecker.com/)
-  
+
 - [ADDED] Added the config file `config/laravel-spammail-checker.php` to handle package configuration.
 - [ADDED] Added Abstract Driver class `Driver.php` to handle API driver configuration and validation using the `DriverInterface.php` interface.
 - [ADDED] Added Config Builder class `ConfigBuilder.php` to handle package configuration building.
@@ -35,7 +35,7 @@ All notable changes to `spammailchecker` will be documented in this file
 ## 2.1.0 (Upcoming)
 - [ADDED] Added support for Laravel ^10x.
 - [ADDED] Added support for the rest of the email validation services.
-  - [ ] [ZeroBounce](https://www.zerobounce.net/) 
+  - [ ] [ZeroBounce](https://www.zerobounce.net/)
   - [ ] [MailboxValidator](https://www.mailboxvalidator.com/)
   - [ ] [EmailListVerify](https://www.emaillistverify.com/)
   - [ ] [Emailable](https://emailable.com/)
@@ -43,3 +43,4 @@ All notable changes to `spammailchecker` will be documented in this file
 - [IMPROVED] Improved package documentation with more examples and usage guidelines.
 - [FIXED] Addressed reported issues and bugs from previous versions.
 - [IMPROVED] Optimized package code for reduced memory usage and increased speed.
+- [REMOVED] Removed support for Laravel 8 and below. The package now supports Laravel 9 and above.

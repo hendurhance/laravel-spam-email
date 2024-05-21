@@ -379,7 +379,8 @@ If you discover any security related issues, please email hendurhance.dev@gmail.
 
 ## Credits
 
--   [Josiah Endurance](https://github.com/hendurhance)
+- [Josiah Endurance](https://github.com/hendurhance)
+- [All Contributors](../../contributors)
 
 ## License
 

@@ -1,4 +1,4 @@
-# Laravel SpamMailChecker 
+# Laravel SpamMailChecker
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/martian/spammailchecker.svg?style=flat-square)](https://packagist.org/packages/martian/laracaptcha) [![Total Downloads](http://poser.pugx.org/martian/spammailchecker/downloads)](https://packagist.org/packages/martian/spammailchecker) [![Latest Unstable Version](http://poser.pugx.org/martian/spammailchecker/v/unstable)](https://packagist.org/packages/martian/spammailchecker) [![License](http://poser.pugx.org/martian/spammailchecker/license)](https://packagist.org/packages/martian/spammailchecker) [![PHP Version Require](http://poser.pugx.org/martian/spammailchecker/require/php)](https://packagist.org/packages/martian/spammailchecker)
 [![Made in Nigeria](https://img.shields.io/badge/made%20in-nigeria-008751.svg?style=flat-square)](https://github.com/acekyd/made-in-nigeria)
@@ -8,7 +8,7 @@
 
 ## Supported Email Validation Services
 | Service                    | Descriptions                                                                                                | Driver                   | Documentation                                                                       | Supported |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------ | ----------------------------------------------------------------------------------- | --------- |
+|----------------------------|-------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------------------------------------------------------------------|-----------|
 | **Local**                  | A local text list of spam email domains.                                                                    | *local*                  | [Read More](/resources/config/emails.txt)                                           | ✅ Yes     |
 | **Remote**                 | Using PHP In-built functions `getmxrr()`, `checkdnsrr()`. `fsockopen()` to validate email domain            | *remote*                 | [Read More](https://www.php.net/manual/en/function.getmxrr.php)                     | ✅ Yes     |
 | **AbstractApi**            | Using Abstract's suite of API to validate email domains                                                     | *abstractapi*            | [Read More](https://www.abstractapi.com/email-verification-validation-api)          | ✅ Yes     |
@@ -25,8 +25,6 @@ You can install the package via composer:
 ```bash
 composer require martian/spammailchecker
 ```
-- If you are using Laravel 5.5 or higher, you can use the package directly: `composer require 'martian/spammailchecker`. Check [Laravel 5.5 Package Discovery](https://laravel.com/docs/5.5/packages#package-discovery) for more information
-- If you're using Laravel 5.4 or lower, you'll need to register the service provider. Open `config/app.php` and add the following line to the `providers` array:
 
 ```php
 Martian\SpamMailChecker\SpamMailCheckerServiceProvider::class,
@@ -195,7 +193,7 @@ The configuration file is located at `config/laravel-spammail-checker.php`. You 
             ]
         ]
     ```
-> **NOTE:** A user on verifalia needs to be granted permission to use the API. You can do this by going to [here](https://verifalia.com/client-area#/users) and clicking on the edit user you want to grant permission to. Then click on the `Permissions` tab and check the appropriate permissions on `Email validations` section.
+> **NOTE:** A user on verifalia needs to be granted permission to use the API. You can do this by going [here](https://verifalia.com/client-area#/users) and clicking on the edit user you want to grant permission to. Then click on the `Permissions` tab and check the appropriate permissions on `Email validations` section.
 
 #### SendGrid Driver Configuration
 - In order to use `sendgrid` as your driver of choice, you need to set the `default` key in the `config/laravel-spammail-checker.php` configuration file to `sendgrid`:
@@ -261,7 +259,7 @@ public function rules()
 
 #### Adding Custom Error Message
 A custom error message can be added to the `spammail` validation rule.
-    
+
 ```php
     'email.spammail' => 'This email address is invalid.', // Custom error message
 ```
@@ -381,7 +379,8 @@ If you discover any security related issues, please email hendurhance.dev@gmail.
 
 ## Credits
 
--   [Josiah Endurance](https://github.com/hendurhance)
+- [Josiah Endurance](https://github.com/hendurhance)
+- [All Contributors](../../contributors)
 
 ## License
 

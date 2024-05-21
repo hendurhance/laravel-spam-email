@@ -33,7 +33,7 @@ All notable changes to `spammailchecker` will be documented in this file
 - [ADDED] Add tests for all supported email validation services.
 
 ## 2.1.0 (Upcoming)
-- [ADDED] Added support for Laravel ^10x.
+- [ADDED] Added support for Laravel 10 and 11.
 - [ADDED] Added support for the rest of the email validation services.
   - [ ] [ZeroBounce](https://www.zerobounce.net/)
   - [ ] [MailboxValidator](https://www.mailboxvalidator.com/)

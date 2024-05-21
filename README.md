@@ -25,8 +25,6 @@ You can install the package via composer:
 ```bash
 composer require martian/spammailchecker
 ```
-- If you are using Laravel 5.5 or higher, you can use the package directly: `composer require 'martian/spammailchecker`. Check [Laravel 5.5 Package Discovery](https://laravel.com/docs/5.5/packages#package-discovery) for more information
-- If you're using Laravel 5.4 or lower, you'll need to register the service provider. Open `config/app.php` and add the following line to the `providers` array:
 
 ```php
 Martian\SpamMailChecker\SpamMailCheckerServiceProvider::class,

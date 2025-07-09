@@ -32,6 +32,9 @@ jobs:
                       testbench: ^9.0
                     - laravel: 12.*
                       testbench: ^10.0
+                exclude:
+                    - php: 8.1
+                      laravel: 12.*
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -53,8 +56,14 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-                  composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+                # Install the framework itself (goes into "require")
+                composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
+                # Install testbench as a dev dependency
+                composer require --dev "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+
+                # Finally update everything
+                composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
             - name: Execute tests
               run: vendor/bin/phpunit

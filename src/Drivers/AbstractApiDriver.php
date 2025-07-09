@@ -11,7 +11,7 @@ class AbstractApiDriver extends Driver
     /**
      * @var string
      */
-    protected $diverName = 'abstractapi';
+    protected $driverName = 'abstractapi';
 
     /**
      * @var string
@@ -39,10 +39,15 @@ class AbstractApiDriver extends Driver
     public function __construct()
     {
         parent::__construct();
-        $this->apiKey = $this->config->getApiKeyForDriver($this->diverName);
-        $this->apiUrl = $this->config->getApiUrlForDriver($this->diverName);
-        $this->score = $this->config->getScoreForDriver($this->diverName);
-        $this->acceptDisposable = $this->config->getAcceptsDisposableEmailForDriver($this->diverName);
+        $this->apiKey = $this->config->getApiKeyForDriver($this->driverName);
+        $this->apiUrl = $this->config->getApiUrlForDriver($this->driverName);
+        $this->score = $this->config->getScoreForDriver($this->driverName);
+        $this->acceptDisposable = $this->config->getAcceptsDisposableEmailForDriver($this->driverName);
+        
+        // Validate API key is set
+        if (empty($this->apiKey)) {
+            throw new SpamMailCheckerException('AbstractAPI API key is not properly configured.');
+        }
     }
 
     /**

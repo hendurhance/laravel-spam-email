@@ -15,9 +15,11 @@ class SpamMailCheckerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Deprecation Notice
-        if (version_compare(InstalledVersions::getVersion('martian/spammailchecker'), '2.0.0', '<'))
-        {
-            trigger_deprecation('martian/spammailchecker', '1.0.0', 'This package is deprecated and will no longer be maintained. Please use version 2.0.0 or higher.');
+        $currentVersion = InstalledVersions::getVersion('martian/spammailchecker');
+        if ($currentVersion && version_compare($currentVersion, '2.0.0', '<')) {
+            if (function_exists('trigger_deprecation')) {
+                trigger_deprecation('martian/spammailchecker', '1.0.0', 'This package is deprecated and will no longer be maintained. Please use version 2.0.0 or higher.');
+            }
         }
 
         if ($this->app->runningInConsole()) {

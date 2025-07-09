@@ -58,6 +58,10 @@ class VerifaliaDriver extends Driver implements IAuthenticator
         $this->apiBaseUris = $this->config->getBaseUrisForDriver($this->driverName);
         $this->apiUrl = $this->config->getApiUrlForDriver($this->driverName);
         $this->version = $this->config->getApiVersionForDriver($this->driverName);
+
+        if (empty($this->credential['username']) || empty($this->credential['password'])) {
+            throw new SpamMailCheckerException('Verifalia credentials are not properly configured.');
+        }
     }
 
     public function authenticate(): string

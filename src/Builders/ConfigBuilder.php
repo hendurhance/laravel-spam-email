@@ -82,9 +82,9 @@ class ConfigBuilder
      * Get the api key for the selected driver.
      * 
      * @param string $driver
-     * @return string
+     * @return string|null
      */
-    public function getApiKeyForDriver(string $driver): string
+    public function getApiKeyForDriver(string $driver): ?string
     {
         if (!array_key_exists('api_key', $this->drivers[$driver])) {
             throw new SpamMailCheckerApiKeyNotSetException(

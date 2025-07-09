@@ -16,15 +16,21 @@ class VerifaliaDriverTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->driver = new VerifaliaDriver();
     }
 
     /**
-     * @test it can get default driver as remote
+     * @test it can check if an email is spam
      */
     public function it_can_check_if_an_email_is_spam()
     {
-        $this->expectException(SpamMailCheckerException::class);
+        $username = env('VERIFALIA_USERNAME');
+        $password = env('VERIFALIA_PASSWORD');
+        
+        if (empty($username) || empty($password)) {
+            $this->markTestSkipped('Verifalia credentials not configured. Skipping test.');
+        }
+        
+        $this->driver = new VerifaliaDriver();
         $this->assertFalse($this->driver->validate('hello@23456gg.com'));
         $this->assertTrue($this->driver->validate('jane@gmail.com'));
     }

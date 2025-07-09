@@ -9,18 +9,32 @@ on:
 jobs:
     test:
         runs-on: ${{ matrix.os }}
+        env:
+          APP_ENV: testing
+          ABSTRACTAPI_API_KEY: ${{ secrets.ABSTRACTAPI_API_KEY }}
+          QUICKEMAILVERIFICATION_API_KEY: ${{ secrets.QUICKEMAILVERIFICATION_API_KEY }}
+          VERIFALIA_USERNAME: ${{ secrets.VERIFALIA_USERNAME }}
+          VERIFALIA_PASSWORD: ${{ secrets.VERIFALIA_PASSWORD }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         strategy:
             fail-fast: true
             matrix:
                 os: [ubuntu-latest, windows-latest]
-                php: [8.2, 8.3]
-                laravel: [10.*, 11.*]
-                stability: [prefer-stable]
+                php: [8.1, 8.2, 8.3]
+                laravel: [10.*, 11.*, 12.*]
+                stability: [prefer-lowest, prefer-stable]
                 include:
-                    - laravel: 11.*
-                      testbench: ^9.0
                     - laravel: 10.*
                       testbench: ^8.0
+                    - laravel: 11.*
+                      testbench: ^9.0
+                    - laravel: 12.*
+                      testbench: ^10.0
+                exclude:
+                    - php: 8.1
+                      laravel: 11.*
+                    - php: 8.1
+                      laravel: 12.*
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -42,8 +56,14 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-                  composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+                # Install the framework itself (goes into "require")
+                composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
+                # Install testbench as a dev dependency
+                composer require --dev "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+
+                # Finally update everything
+                composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
             - name: Execute tests
               run: vendor/bin/phpunit

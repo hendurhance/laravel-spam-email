@@ -2,7 +2,6 @@
 
 namespace Martian\SpamMailChecker\Drivers;
 
-use Illuminate\Support\Facades\Log;
 use Martian\SpamMailChecker\Abstracts\Driver;
 use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
 use QuickEmailVerification\Client as QuickEmailVerificationClient;
@@ -50,12 +49,12 @@ class QuickEmailVerificationDriver extends Driver
     {
         try {
             $response = $this->getVerificationResponse($email);
-            print_r('Hello Test: '.json_encode($response));
+
             if($response['result'] !== 'valid') {
                 return false;
             }
 
-            if(!$this->acceptDisposable && $response['disposable'] === 'true') {
+            if(!$this->acceptDisposable && $response['disposable']) {
                 return false;
             }
             

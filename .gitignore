@@ -7,4 +7,5 @@ phpunit.xml
 
 # Environment variables
 .env
+.env.testing
 .phpunit.result.cache

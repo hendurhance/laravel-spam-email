@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
 use Martian\SpamMailChecker\SpamMailChecker;
 use Martian\SpamMailChecker\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SpamMailCheckerTest extends TestCase
 {
@@ -17,6 +18,7 @@ class SpamMailCheckerTest extends TestCase
     /**
      * @test it can get default driver
      */
+    #[Test]
     public function it_can_get_default_driver_as_remote()
     {
         $this->assertEquals('local', $this->configBuilder->getDefaultDriver());
@@ -25,6 +27,7 @@ class SpamMailCheckerTest extends TestCase
     /**
      * @test it can get default driver as remote
      */
+    #[Test]
     public function it_can_get_default_driver_as_remote_when_it_is_set()
     {
         $this->configBuilder->setDefaultDriver('remote');
@@ -34,6 +37,7 @@ class SpamMailCheckerTest extends TestCase
     /**
      * @test it can get absractapi driver has api key
      */
+    #[Test]
     public function it_can_get_absractapi_driver_has_api_key()
     {
         $apiKey = env('ABSTRACTAPI_API_KEY');
@@ -52,6 +56,7 @@ class SpamMailCheckerTest extends TestCase
     /**
      * @test it can get sendgrid driver has api key
      */
+    #[Test]
     public function it_can_get_sendgrid_driver_has_api_key_when_it_is_set()
     {
         $apiKey = env('SENDGRID_API_KEY');
@@ -69,6 +74,7 @@ class SpamMailCheckerTest extends TestCase
     /**
      * @test it can get validate email using verifalia as default driver
      */
+    #[Test]
     public function it_can_get_validate_email_using_verifalia_as_default_driver()
     {
         $username = env('VERIFALIA_USERNAME');

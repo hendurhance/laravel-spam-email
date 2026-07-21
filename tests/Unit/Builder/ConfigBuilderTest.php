@@ -3,12 +3,14 @@
 namespace Martian\SpamMailChecker\Tests\Unit\Builder;
 
 use Martian\SpamMailChecker\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ConfigBuilderTest extends TestCase
 {
     /**
      * @test it can get default driver
      */
+    #[Test]
     public function it_can_get_default_driver()
     {
         $this->assertEquals('local', $this->configBuilder->getDefaultDriver());
@@ -17,6 +19,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can set default driver
      */
+    #[Test]
     public function it_can_set_default_driver()
     {
         $this->configBuilder->setDefaultDriver('test');
@@ -26,6 +29,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get all available drivers
      */
+    #[Test]
     public function it_can_get_all_available_drivers()
     {
         $this->assertEquals(
@@ -44,6 +48,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get api key for a driver (abstractapi)
      */
+    #[Test]
     public function it_can_get_api_key_for_a_driver()
     {
         $this->assertEquals(
@@ -55,6 +60,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get api url for a driver (abstractapi)
      */
+    #[Test]
     public function it_can_get_api_url_for_a_driver()
     {
         $this->assertEquals(
@@ -66,6 +72,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get credentials for a driver (verifalia)
      */
+    #[Test]
     public function it_can_get_credentials_for_a_driver()
     {
         $this->assertEquals(
@@ -80,6 +87,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get score for a driver (sendgrid)
      */
+    #[Test]
     public function it_can_get_score_for_a_driver()
     {
         $this->assertEquals(
@@ -91,6 +99,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get accept disposable email for a driver (sendgrid)
      */
+    #[Test]
     public function it_can_get_accept_disposable_email_for_a_driver()
     {
         $this->assertTrue(
@@ -101,6 +110,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get api version for a driver (verifalia)
      */
+    #[Test]
     public function it_can_get_api_version_for_a_driver()
     {
         $this->assertEquals(
@@ -112,6 +122,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get source for a driver (sendgrid)
      */
+    #[Test]
     public function it_can_get_source_for_a_driver()
     {
         $this->assertEquals(
@@ -123,6 +134,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get base uris for a driver (verifalia)
      */
+    #[Test]
     public function it_can_get_base_uris_for_a_driver()
     {
         $this->assertEquals(
@@ -138,6 +150,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test it can get timeout for a driver (remote)
      */
+    #[Test]
     public function it_can_get_timeout_for_a_driver()
     {
         $this->assertEquals(

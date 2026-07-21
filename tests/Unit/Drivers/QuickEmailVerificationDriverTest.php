@@ -5,6 +5,7 @@ namespace Martian\SpamMailChecker\Tests\Unit\Drivers;
 use Martian\SpamMailChecker\Drivers\QuickEmailVerificationDriver;
 use Martian\SpamMailChecker\Exceptions\SpamMailCheckerException;
 use Martian\SpamMailChecker\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class QuickEmailVerificationDriverTest extends TestCase
 {
@@ -21,6 +22,7 @@ class QuickEmailVerificationDriverTest extends TestCase
     /**
      * @test it can check if an email is spam
      */
+    #[Test]
     public function it_can_check_if_an_email_is_spam()
     {
         $apiKey = env('QUICKEMAILVERIFICATION_API_KEY');

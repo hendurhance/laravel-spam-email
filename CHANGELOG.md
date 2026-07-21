@@ -44,3 +44,8 @@ All notable changes to `spammailchecker` will be documented in this file
 - [FIXED] Addressed reported issues and bugs from previous versions.
 - [IMPROVED] Optimized package code for reduced memory usage and increased speed.
 - [REMOVED] Removed support for Laravel 8 and below. The package now supports Laravel 9 and above.
+
+## 2.2.0 - 2026-07-21
+- [ADDED] Added support for Laravel 13 and PHP 8.5.
+- [REMOVED] Removed support for Laravel 10 and 11. The package now supports Laravel 12 and above. Both versions have reached end of life and can no longer be installed by Composer.
+- [CHANGED] Test methods now declare the PHPUnit `#[Test]` attribute, which PHPUnit 12 requires in place of the `@test` annotation.

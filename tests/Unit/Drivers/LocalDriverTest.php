@@ -5,6 +5,7 @@ namespace Martian\SpamMailChecker\Tests\Unit\Drivers;
 use Illuminate\Support\Facades\Config;
 use Martian\SpamMailChecker\Drivers\LocalDriver;
 use Martian\SpamMailChecker\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class LocalDriverTest extends TestCase
 {
@@ -24,6 +25,7 @@ class LocalDriverTest extends TestCase
     /**
      * @test it can check if an email is spam
      */
+    #[Test]
     public function it_can_check_if_an_email_is_spam()
     {
         $this->assertFalse($this->driver->validate('hello@example.com'));
@@ -33,6 +35,7 @@ class LocalDriverTest extends TestCase
     /**
      * @test it cannot validate an email in whitelist
      */
+    #[Test]
     public function it_cannot_validate_an_email_in_whitelist()
     {
         $this->assertTrue($this->driver->validate('hello@12345gmail.com'));
@@ -41,6 +44,7 @@ class LocalDriverTest extends TestCase
     /**
      * @test it can validate an email in blacklist
      */
+    #[Test]
     public function it_can_validate_an_email_in_blacklist()
     {
         $this->assertFalse($this->driver->validate('hello@yahoo.com'));
